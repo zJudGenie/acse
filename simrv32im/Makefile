@@ -2,7 +2,7 @@ TARGET_DIR:=../bin
 TARGET:=$(TARGET_DIR)/simrv32im
 
 C_SRC:=simrv32im.c cpu.c debugger.c isa.c loader.c memory.c supervisor.c
-CFLAGS:=-g --std=c99
+CFLAGS:=-g --std=gnu99
 
 BUILD_DIR:=build
 OBJS:=$(patsubst %,$(BUILD_DIR)/%,$(C_SRC:.c=.o))

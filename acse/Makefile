@@ -8,7 +8,7 @@ Y_SRC:=parser.y
 L_SRC:=scanner.l
 C_SRC:=acse.c cfg.c codegen.c errors.c list.c program.c reg_alloc.c \
        target_asm_print.c target_info.c target_transform.c
-CFLAGS:=-g --std=c99
+CFLAGS:=-g --std=gnu99
 
 BUILD_DIR:=build
 BISON_OUT:=$(patsubst %,$(BUILD_DIR)/%,$(Y_SRC:.y=.tab.c))

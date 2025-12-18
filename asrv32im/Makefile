@@ -2,7 +2,7 @@ TARGET_DIR:=../bin
 TARGET:=$(TARGET_DIR)/asrv32im
 
 C_SRC:=asrv32im.c encode.c errors.c lexer.c object.c output.c parser.c
-CFLAGS:=-g --std=c99
+CFLAGS:=-g --std=gnu99
 
 BUILD_DIR:=build
 OBJS:=$(patsubst %,$(BUILD_DIR)/%,$(C_SRC:.c=.o))
