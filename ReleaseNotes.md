@@ -1,5 +1,13 @@
 # Release Notes
 
+## ACSE 2.0.3
+
+Released on 2025-12-18
+
+- simrv32im: Support execution on big-endian machines.
+- asrv32im: Support execution on big-endian machines.
+- More legible makefiles.
+
 ## ACSE 2.0.2
 
 Released on 2024-12-11
