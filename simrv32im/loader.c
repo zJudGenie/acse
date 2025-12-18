@@ -16,8 +16,8 @@ t_ldrError ldrLoadBinary(
 
   if (fseek(fp, 0, SEEK_END) < 0)
     return LDR_FILE_ERROR;
-  off_t fpos = ftello(fp);
-  if (fpos < 0 || fpos > (size_t)0x8000000) {
+  long fpos = ftell(fp);
+  if (fpos < 0 || fpos > 0x8000000L) {
     fclose(fp);
     return LDR_FILE_ERROR;
   }
@@ -158,12 +158,12 @@ t_ldrError ldrLoadELF(const char *path)
   if (fromLE16(header.e_machine) != EM_RISCV)
     goto invalid_arch;
 
-  off_t phnum = fromLE16(header.e_phnum);
-  off_t phoff = fromLE32(header.e_phoff);
-  off_t phentsize = fromLE16(header.e_phentsize);
-  for (off_t phi = 0; phi < phnum; phi++) {
+  long phnum = fromLE16(header.e_phnum);
+  long phoff = fromLE32(header.e_phoff);
+  long phentsize = fromLE16(header.e_phentsize);
+  for (long phi = 0; phi < phnum; phi++) {
     Elf32_Phdr segment;
-    fseeko(fp, phoff + phi * phentsize, SEEK_SET);
+    fseek(fp, (long)(phoff + phi * phentsize), SEEK_SET);
     if (fread(&segment, sizeof(Elf32_Phdr), 1, fp) < 1)
       goto read_error;
 
@@ -185,7 +185,7 @@ t_ldrError ldrLoadELF(const char *path)
       if (memMapArea(pvaddr, pmemsz, &buf) != MEM_NO_ERROR)
         goto mem_error;
       if (pfilesz > 0) {
-        fseeko(fp, (off_t)poffset, SEEK_SET);
+        fseek(fp, (long)poffset, SEEK_SET);
         size_t readsz = MIN(pmemsz, pfilesz);
         if (fread(buf, readsz, 1, fp) < 1)
           goto read_error;

@@ -178,9 +178,9 @@ Elf32_Shdr outputStrTabToELFSHdr(
   return shdr;
 }
 
-t_outError outputStrTabContentToFile(FILE *fp, off_t whence, t_outStrTbl *tbl)
+t_outError outputStrTabContentToFile(FILE *fp, long whence, t_outStrTbl *tbl)
 {
-  if (fseeko(fp, whence, SEEK_SET) < 0)
+  if (fseek(fp, whence, SEEK_SET) < 0)
     return OUT_FILE_ERROR;
   if (fwrite(tbl->buf, tbl->tail, 1, fp) < 1)
     return OUT_FILE_ERROR;
@@ -224,9 +224,9 @@ Elf32_Shdr outputSecToELFSHdr(
   return shdr;
 }
 
-t_outError outputSecContentToFile(FILE *fp, off_t whence, t_objSection *sec)
+t_outError outputSecContentToFile(FILE *fp, long whence, t_objSection *sec)
 {
-  if (fseeko(fp, whence, SEEK_SET) < 0)
+  if (fseek(fp, whence, SEEK_SET) < 0)
     return OUT_FILE_ERROR;
 
   t_objSecItem *itm = objSecGetItemList(sec);

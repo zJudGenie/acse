@@ -40,7 +40,7 @@ t_lexer *newLexer(const char *fn)
     return NULL;
   }
   fseek(fp, 0, SEEK_END);
-  ssize_t fileSize = ftello(fp);
+  long fileSize = ftell(fp);
   if (fileSize < 0) {
     free(lex);
     return NULL;
